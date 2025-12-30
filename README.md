@@ -33,7 +33,7 @@ A Pastebin-like web application built using the MERN stack where users can creat
 ## ⚡ Run Commands
 ```bash
 cd backend
-npm install       # Install dependencies
+npm install       
 node server.js
 
 ```bash
