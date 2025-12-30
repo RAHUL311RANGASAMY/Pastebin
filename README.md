@@ -1,34 +1,42 @@
-# Pastebin Web Application
+# Pastebin Web Application (MERN Stack)
 
-A full-stack **Pastebin-like web application** that allows users to quickly create, store, and share text content through a unique shareable link. Users can optionally set expiration for pastes based on **time** or **maximum number of views**.
+A Pastebin-like web application built using the MERN stack where users can create, share, and view text content using a unique URL. Pastes can optionally expire based on time or number of views.
+
+---
+
+## 🚀 Features
+
+- Create and store text snippets (pastes)
+- Generate a unique shareable link for each paste
+- View pastes using the generated link
+- Optional paste expiration (time-based or view-based)
+- RESTful API using Express and MongoDB
+- Responsive React frontend
 
 ---
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Frontend**
+- React (Create React App)
+- React Router DOM
+- Axios
+- CSS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-ate-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-## Features
-
-- **Create Pastes:** Submit text content with optional expiration settings.
-- **Shareable Links:** Each paste generates a unique URL for easy sharing.
-- **View Pastes:** View paste content via the link; tracks and updates **view counts**.
-- **Paste Expiration:** Pastes can expire automatically based on time or views.
-- **Copy Link:** Easily copy the generated link with a button click.
-- **Responsive UI:** Clean and intuitive interface built with React.
-
-## Technology Stack
-
-- **Frontend:** React.js, React Router, CSS
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB Atlas
-- **Deployment:** Railway/Render (backend serves frontend, single website)
+**Backend**
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- dotenv
 
 ---
+## ⚡ Run Commands
+```bash
+cd backend
+npm install       # Install dependencies
+node server.js
+
+```bash
+cd frontend
+npm install
+npm start
