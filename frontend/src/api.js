@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://pastebin-yxkq.onrender.com"
+  baseURL: import.meta.env. REACT_BACKEND_RENDERURL,
 });
