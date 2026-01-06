@@ -9,7 +9,7 @@ const app = express();
 
 // Enable CORS for frontend
 app.use(cors({
-  origin: "http://localhost:3000", // frontend origin
+  origin:"https://pastebin-vrb1.vercel.app", // frontend origin
   methods: ["GET", "POST"]
 }));
 
