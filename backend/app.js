@@ -9,7 +9,7 @@ const app = express();
 
 // Enable CORS for frontend
 app.use(cors({
-  origin:"https://pastebin-vrb1.vercel.app", // frontend origin
+  origin:"https://pastebin-526b.vercel.app", // frontend origin
   methods: ["GET", "POST"]
 }));
 
