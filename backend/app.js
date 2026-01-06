@@ -1,3 +1,25 @@
+// const express = require("express");
+// const cors = require("cors");
+// const connectDB = require("./config/db");
+// const pasteRoutes = require("./routes/pasteRoutes");
+
+// connectDB();
+
+// const app = express();
+
+// // Enable CORS for frontend
+// app.use(cors({
+//   origin:"https://pastebin-526b.vercel.app", // frontend origin
+//   methods: ["GET", "POST"]
+// }));
+
+// app.use(express.json());
+
+// // Routes
+// app.use("/api/paste", pasteRoutes);
+
+// module.exports = app;
+
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -7,11 +29,15 @@ connectDB();
 
 const app = express();
 
-// Enable CORS for frontend
+// ✅ FIXED CORS CONFIG
 app.use(cors({
-  origin:"https://pastebin-526b.vercel.app", // frontend origin
-  methods: ["GET", "POST"]
+  origin: "https://pastebin-526b.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
+// ✅ HANDLE PREFLIGHT
+app.options("*", cors());
 
 app.use(express.json());
 
@@ -19,4 +45,3 @@ app.use(express.json());
 app.use("/api/paste", pasteRoutes);
 
 module.exports = app;
-
