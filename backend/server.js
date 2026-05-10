@@ -18,7 +18,7 @@ app.use(express.json());
 
 
 // Routes
-app.use('/api/paste', require('./routes/PasteRoutes'));
+app.use('/api/paste', require('./routes/pasteRoutes'));
 // MongoDB connect
 mongoose
   .connect(process.env.MONGO_URI)
