@@ -1,4 +1,5 @@
 import { useState } from "react";
+import api from "../api";
 
 const CreatePaste = () => {
   const [content, setContent] = useState("");
@@ -17,29 +18,17 @@ const CreatePaste = () => {
     setPasteLink("");
 
     try {
-      const res = await fetch("https://pastebin-yxkq.onrender.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content,
-          maxViews: maxViews ? Number(maxViews) : null,
-          expiryMinutes: expiryMinutes ? Number(expiryMinutes) : null,
-        }),
+      const res = await api.post("/api/paste", {
+        content,
+        maxViews: maxViews ? Number(maxViews) : null,
+        expiryMinutes: expiryMinutes ? Number(expiryMinutes) : null,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to create paste");
-      }
-
       // ✅ CREATE LINK
-      const link = `${window.location.origin}/paste/${data._id}`;
+      const link = `${window.location.origin}/paste/${res.data._id}`;
       setPasteLink(link);
     } catch (err) {
-      alert(err.message);
+      alert(err.response?.data?.error || "Failed to create paste");
     } finally {
       setLoading(false);
     }
