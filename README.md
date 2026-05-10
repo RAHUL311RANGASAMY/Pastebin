@@ -2,8 +2,8 @@
 
 A Pastebin-like web application built using the MERN stack where users can create, share, and view text content using a unique URL. Pastes can optionally expire based on time or number of views.
 
-🔗 Live Demo: pastebin-526b.vercel.app/create
-🛠️ Backend API: pastebin-backends.onrender.com
+🔗 Live Demo: https://pastebin-526b.vercel.app/create
+🛠️ Backend API: https://pastebin-backends.onrender.com
 
 ## 🚀 Features
 
