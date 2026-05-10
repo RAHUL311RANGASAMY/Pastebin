@@ -1,42 +1,83 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import api from "../api";
 
-const ViewPaste = () => {
-  const { id } = useParams();
-  const [paste, setPaste] = useState(null);
-  const [error, setError] = useState("");
+const CreatePaste = () => {
+  const [content, setContent] = useState("");
+  const [maxViews, setMaxViews] = useState("");
+  const [expiryMinutes, setExpiryMinutes] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [pasteLink, setPasteLink] = useState("");
 
-  useEffect(() => {
-    const fetchPaste = async () => {
-      try {
-        const res = await fetch(`https://pastebin-yxkq.onrender.com`);
-        const data = await res.json();
-        if (!res.ok) {
-          setError(data.error || "Paste not found");
-        } else {
-          setPaste(data);
-        }
-      } catch (err) {
-        setError("Failed to fetch paste");
-      }
-    };
-    fetchPaste();
-  }, [id]);
+  const handleCreate = async () => {
+    if (!content.trim()) {
+      alert("Paste content required");
+      return;
+    }
+
+    setLoading(true);
+    setPasteLink("");
+
+    try {
+      const res = await api.post("/api/paste", {
+        content,
+        maxViews: maxViews ? Number(maxViews) : null,
+        expiryMinutes: expiryMinutes ? Number(expiryMinutes) : null,
+      });
+
+      // ✅ CREATE LINK
+      const link = `${window.location.origin}/paste/${res.data._id}`;
+      setPasteLink(link);
+    } catch (err) {
+      alert(err.response?.data?.error || "Failed to create paste");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(pasteLink);
+    alert("Link copied!");
+  };
 
   return (
     <div className="container">
-      <h2>View Link</h2>
+      <h2>Create Paste</h2>
 
-      {error && <p className="error">{error}</p>}
+      <textarea
+        placeholder="Enter your paste content..."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        rows={8}
+      />
 
-      {paste && (
-        <div className="paste-box">
-          <textarea readOnly value={paste.content} />
-          <h2>Views: {paste.views}</h2>
+      <div className="row">
+        <input
+          type="number"
+          placeholder="Max Views"
+          value={maxViews}
+          onChange={(e) => setMaxViews(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Expiry (minutes)"
+          value={expiryMinutes}
+          onChange={(e) => setExpiryMinutes(e.target.value)}
+        />
+      </div>
+
+      <button onClick={handleCreate} disabled={loading}>
+        {loading ? "Creating..." : "Create Paste"}
+      </button>
+
+      {/* ✅ LINK SECTION */}
+      {pasteLink && (
+        <div className="link-box">
+          <input value={pasteLink} readOnly />
+          <button onClick={copyLink}>Copy</button>
         </div>
       )}
     </div>
   );
 };
 
-export default ViewPaste;
+export default CreatePaste;
